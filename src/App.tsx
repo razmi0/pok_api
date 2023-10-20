@@ -48,11 +48,11 @@ const App = () => {
               />
               {open[index] && (
                 <div className="pokemon-ctn">
+                  <img src={image} alt={name} />
                   <div className="tables">
                     <GlobalStatsTable pokemon={pokemon} />
                     <StatsTable pokemon={pokemon} />
                   </div>
-                  <img src={image} alt={name} />
                 </div>
               )}
             </div>
