@@ -1,17 +1,27 @@
+import { svgStatData } from "../icons";
+import { Heart, Shield, SpShield, SpSword, Speed, Sword, Icon } from "../icons/svg";
 import type { Pokemon } from "../types";
 
 export const StatsTable = ({ pokemon }: { pokemon: Pokemon }) => {
   const { hp, attack, defense, specialAttack, specialDefense, speed } = pokemon;
+  const statsWithIcons = [
+    { stat: hp, icon: <Icon icon={Heart} svgData={svgStatData} /> },
+    { stat: attack, icon: <Icon icon={Sword} svgData={svgStatData} /> },
+    { stat: specialAttack, icon: <Icon icon={SpSword} svgData={svgStatData} /> },
+    { stat: defense, icon: <Icon icon={Shield} svgData={svgStatData} /> },
+    { stat: specialDefense, icon: <Icon icon={SpShield} svgData={svgStatData} /> },
+    { stat: speed, icon: <Icon icon={Speed} svgData={svgStatData} /> },
+  ];
 
   return (
     <>
       <div className="grid-ctn">
-        <div className="grid-item">{hp}</div>
-        <div className="grid-item">{attack}</div>
-        <div className="grid-item">{defense}</div>
-        <div className="grid-item">{specialAttack}</div>
-        <div className="grid-item">{specialDefense}</div>
-        <div className="grid-item">{speed}</div>
+        {statsWithIcons.map(({ stat, icon }, i) => (
+          <div className="grid-item" key={i}>
+            {icon}
+            <div className="grid-item-stat">{stat}</div>
+          </div>
+        ))}
       </div>
     </>
   );

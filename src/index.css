@@ -35,18 +35,14 @@ h1 {
 }
 .tables {
   display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  align-items: center;
+  flex-direction: row;
   gap: 1em;
   width: 100%;
 }
 .pokemon-ctn {
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
   align-items: center;
-  gap: 10em;
 }
 
 button {
@@ -99,24 +95,27 @@ button:hover {
 }
 .grid-ctn {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: 6fr;
+  gap: 10px;
   grid-auto-flow: row;
-  width: 50%;
+  width: fit-content;
   height: fit-content;
 }
 .grid-item {
-  padding: 10px;
-  font-size: 25px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.8em;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
   text-align: center;
-  border: 1px solid #000;
 }
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 
+.icon-stat-ctn {
+  display: flex;
+  place-content: center;
+}
 @media (prefers-color-scheme: dark) {
   :root {
     color: #213547;

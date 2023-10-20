@@ -1,11 +1,14 @@
+import { ComponentType, useState } from "react";
+import { IconNameType, SvgStatDataType } from "./";
+
 type EyeProps = {
   color: string;
-  open: boolean;
+  isOpen: boolean;
 };
-export const Eye = ({ color, open }: EyeProps) => {
+export const Eye = ({ color, isOpen }: EyeProps) => {
   return (
     <div>
-      {open ? (
+      {isOpen ? (
         <svg
           version="1.0"
           id="Layer_1"
@@ -69,6 +72,173 @@ export const Eye = ({ color, open }: EyeProps) => {
           </g>
         </svg>
       )}
+    </div>
+  );
+};
+
+type SvgProps = {
+  color: string;
+  size: [string, string];
+};
+export const Heart = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      width={size[0]}
+      height={size[1]}
+      viewBox="0 0 24.00 24.00"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
+          fill={color}
+        ></path>
+      </g>
+    </svg>
+  );
+};
+
+export const Sword = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      fill={color}
+      width={size[0]}
+      height={size[1]}
+      viewBox="-2.5 -2.5 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMinYMin"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path d="M9.646 14.096a1 1 0 1 1-1.414 1.414l-1.414-1.414-2.828 2.829a1 1 0 0 1-1.415 1.414l-1.414-1.414a1 1 0 0 1 1.414-1.415l2.829-2.828-1.414-1.414a1 1 0 0 1 1.414-1.414l4.242 4.242zm.708-.707L6.11 9.146 14.596.661l3.536.707.707 3.536-8.485 8.485z"></path>
+      </g>
+    </svg>
+  );
+};
+
+export const Shield = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      fill={color}
+      width={size[0]}
+      height={size[1]}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path d="m20.496 6.106-7.973-4a.997.997 0 0 0-.895-.002l-8.027 4c-.297.15-.502.437-.544.767-.013.097-1.145 9.741 8.541 15.008a.995.995 0 0 0 .969-.009c9.307-5.259 8.514-14.573 8.476-14.967a1 1 0 0 0-.547-.797z"></path>
+      </g>
+    </svg>
+  );
+};
+
+export const SpSword = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill={color}
+      width={size[0]}
+      height={size[1]}
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <g>
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path
+            fillRule="nonzero"
+            d="M7.05 13.406l3.534 3.536-1.413 1.414 1.415 1.415-1.414 1.414-2.475-2.475-2.829 2.829-1.414-1.414 2.829-2.83-2.475-2.474 1.414-1.414 1.414 1.413 1.413-1.414zM3 3l3.546.003 11.817 11.818 1.415-1.414 1.414 1.414-2.474 2.475 2.828 2.829-1.414 1.414-2.829-2.829-2.475 2.475-1.414-1.414 1.414-1.415L3.003 6.531 3 3zm14.457 0L21 3.003l.002 3.523-4.053 4.052-3.536-3.535L17.457 3z"
+          ></path>
+        </g>
+      </g>
+    </svg>
+  );
+};
+
+export const SpShield = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill={color}
+      width={size[0]}
+      height={size[1]}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M3.37752 5.08241C3 5.62028 3 7.21907 3 10.4167V11.9914C3 17.6294 7.23896 20.3655 9.89856 21.5273C10.62 21.8424 10.9807 22 12 22C13.0193 22 13.38 21.8424 14.1014 21.5273C16.761 20.3655 21 17.6294 21 11.9914V10.4167C21 7.21907 21 5.62028 20.6225 5.08241C20.245 4.54454 18.7417 4.02996 15.7351 3.00079L15.1623 2.80472C13.595 2.26824 12.8114 2 12 2C11.1886 2 10.405 2.26824 8.83772 2.80472L8.26491 3.00079C5.25832 4.02996 3.75503 4.54454 3.37752 5.08241ZM10.8613 8.36335L10.7302 8.59849C10.5862 8.85677 10.5142 8.98591 10.402 9.07112C10.2897 9.15633 10.1499 9.18796 9.87035 9.25122L9.61581 9.30881C8.63194 9.53142 8.14001 9.64273 8.02297 10.0191C7.90593 10.3955 8.2413 10.7876 8.91204 11.572L9.08557 11.7749C9.27617 11.9978 9.37147 12.1092 9.41435 12.2471C9.45722 12.385 9.44281 12.5336 9.41399 12.831L9.38776 13.1018C9.28635 14.1482 9.23565 14.6715 9.54206 14.9041C9.84847 15.1367 10.3091 14.9246 11.2303 14.5005L11.4686 14.3907C11.7304 14.2702 11.8613 14.2099 12 14.2099C12.1387 14.2099 12.2696 14.2702 12.5314 14.3907L12.7697 14.5005C13.6909 14.9246 14.1515 15.1367 14.4579 14.9041C14.7644 14.6715 14.7136 14.1482 14.6122 13.1018L14.586 12.831C14.5572 12.5337 14.5428 12.385 14.5857 12.2471C14.6285 12.1092 14.7238 11.9978 14.9144 11.7749L15.088 11.572C15.7587 10.7876 16.0941 10.3955 15.977 10.0191C15.86 9.64273 15.3681 9.53142 14.3842 9.30881L14.1296 9.25122C13.8501 9.18796 13.7103 9.15633 13.598 9.07112C13.4858 8.98592 13.4138 8.85678 13.2698 8.5985L13.1387 8.36335C12.6321 7.45445 12.3787 7 12 7C11.6213 7 11.3679 7.45445 10.8613 8.36335Z"
+          fill={color}
+        ></path>
+      </g>
+    </svg>
+  );
+};
+
+export const Speed = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size[0]}
+      height={size[1]}
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          d="M15.7639 7C16.3132 6.38625 17.1115 6 18 6C19.6569 6 21 7.34315 21 9C21 10.6569 19.6569 12 18 12H3M8.50926 4.66667C8.87548 4.2575 9.40767 4 10 4C11.1046 4 12 4.89543 12 6C12 7.10457 11.1046 8 10 8H3M11.5093 19.3333C11.8755 19.7425 12.4077 20 13 20C14.1046 20 15 19.1046 15 18C15 16.8954 14.1046 16 13 16H3"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+      </g>
+    </svg>
+  );
+};
+
+type IconProps = {
+  icon: ComponentType<SvgProps>;
+  svgData: SvgStatDataType;
+};
+
+export const Icon = ({ icon: SvgIcon, svgData }: IconProps) => {
+  const [isHover, setIsHover] = useState(false);
+
+  const { icons, filter, scale, transition, size } = svgData;
+
+  const svgName: IconNameType = SvgIcon.name.toLowerCase();
+  const color = icons[svgName].color;
+
+  const dropShadow = isHover
+    ? `drop-shadow(0px 0px ${filter[0]} ${color})`
+    : `drop-shadow(0px 0px ${filter[1]} ${color})`;
+  const transform = isHover ? `scale(${scale})` : "none";
+
+  return (
+    <div
+      className="icon-stat-ctn"
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      style={{
+        filter: dropShadow,
+        transform: transform,
+        transition: transition,
+      }}
+    >
+      <SvgIcon color={color} size={size} />
     </div>
   );
 };

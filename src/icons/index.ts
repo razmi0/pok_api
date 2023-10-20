@@ -48,3 +48,50 @@ export const typeData: TypeData = {
     color: "#C03028",
   },
 };
+
+export type IconNameType = "heart" | "sword" | "shield" | "spSword" | "spShield" | "speed" | string;
+export type SvgStatDataType = {
+  size: [string, string];
+  filter: [string, string];
+  scale: string;
+  transition: string;
+  icons: {
+    [key in IconNameType]: {
+      color: string;
+      stat: string;
+    };
+  };
+};
+
+export const svgStatData: SvgStatDataType = {
+  size: ["32px", "32px"],
+  filter: ["8px", "3px"],
+  scale: "1.1",
+  transition: "all 0.2s ease-in-out",
+  icons: {
+    heart: {
+      color: "#ff5959",
+      stat: "Hp",
+    },
+    sword: {
+      color: "#f08030",
+      stat: "Attack",
+    },
+    shield: {
+      color: "#f8d030",
+      stat: "Defense",
+    },
+    spsword: {
+      color: "#6890f0",
+      stat: "Special-attack",
+    },
+    spshield: {
+      color: "#78c850",
+      stat: "Special-defense",
+    },
+    speed: {
+      color: "#f85888",
+      stat: "Speed",
+    },
+  },
+};

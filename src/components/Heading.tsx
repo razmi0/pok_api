@@ -5,10 +5,10 @@ type HeadingProps = {
   title: string;
   color: string;
   onClick: (index: number) => void;
-  open: boolean;
+  isOpen: boolean;
   index: number;
 };
-export const Heading = ({ title, color, onClick, open, index }: HeadingProps) => {
+export const Heading = ({ title, color, onClick, isOpen, index }: HeadingProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
   title = title.charAt(0).toUpperCase() + title.slice(1);
   return (
@@ -22,7 +22,7 @@ export const Heading = ({ title, color, onClick, open, index }: HeadingProps) =>
         filter: isHovering ? `drop-shadow(0px 0px 10px ${color})` : `none`,
       }}
     >
-      <Eye open={open} color={color} />
+      <Eye isOpen={isOpen} color={color} />
       <h2 style={{ color: color }}>{title}</h2>
     </div>
   );

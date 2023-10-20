@@ -13,19 +13,19 @@ const POKEMON_OFFSET = 0;
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [open, setOpen] = useState<boolean[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean[]>([]);
 
   const getPokemons = async () => {
     setLoading(true);
     setPokemons(await callApi(POKEMONS_LIMIT, POKEMON_OFFSET));
-    setOpen(new Array(pokemons.length).fill(false));
+    setIsOpen(new Array(pokemons.length).fill(false));
     setLoading(false);
   };
 
   const handleOpen = (index: number) => {
-    const newOpen = [...open];
+    const newOpen = [...isOpen];
     newOpen[index] = !newOpen[index];
-    setOpen(newOpen);
+    setIsOpen(newOpen);
   };
 
   return (
@@ -44,13 +44,13 @@ const App = () => {
                 color={color}
                 onClick={handleOpen}
                 index={index}
-                open={open[index]}
+                isOpen={isOpen[index]}
               />
-              {open[index] && (
+              {isOpen[index] && (
                 <div className="pokemon-ctn">
                   <img src={image} alt={name} />
                   <div className="tables">
-                    <GlobalStatsTable pokemon={pokemon} />
+                    {/* <GlobalStatsTable pokemon={pokemon} /> */}
                     <StatsTable pokemon={pokemon} />
                   </div>
                 </div>
