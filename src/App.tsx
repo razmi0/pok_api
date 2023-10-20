@@ -1,69 +1,119 @@
 import { useState } from "react";
-import { call } from "./services";
+import { getPokemons, Pokemon } from "./services";
 import "./App.css";
-
-const svgsTypes = {
-  bug: "./bug.svg",
-  elec: "./elec.svg",
-  fire: "./fire.svg",
-  grass: "./grass.svg",
-  water: "./water.svg",
+type Logo = {
+  [key: string]: {
+    logo: string;
+    color: string;
+  };
 };
-
-type Pokemon = {
-  name: string;
-  baseXp: number;
-  hp: number;
-  attack: number;
-  defense: number;
-  specialAttack: number;
-  specialDefense: number;
-  speed: number;
-  type: string;
-  ability: string;
-  height: number;
-  weight: number;
-  image: string;
-  id: number;
+const logos: Logo = {
+  bug: {
+    logo: "./bug.svg",
+    color: "#A8B820",
+  },
+  elec: {
+    logo: "./elec.svg",
+    color: "#F8D030",
+  },
+  fire: {
+    logo: "./fire.svg",
+    color: "#F08030",
+  },
+  grass: {
+    logo: "./grass.svg",
+    color: "#78C850",
+  },
+  water: {
+    logo: "./water.svg",
+    color: "#6890F0",
+  },
 };
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
-  const getThem = async () => {
+  const callApi = async () => {
     setLoading(true);
-    const pokemons = await call();
-    //@ts-ignore
-    setPokemons(pokemons);
+    setPokemons(await getPokemons());
     setLoading(false);
   };
 
   return (
     <>
-      <button className="App" onClick={getThem}>
-        {loading ? "Loading..." : "Call API"}
-      </button>
-      <div>
-        {pokemons?.length > 0 &&
-          pokemons.map((pokemon) => (
-            <div key={pokemon.id}>
-              <h1>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
-              <img src={svgsTypes[pokemon.type]} alt={pokemon.type} />
+      <Button onClick={callApi} loading={loading} />
+      {pokemons &&
+        pokemons.map((pokemon) => {
+          const { id, type, image, name } = pokemon;
+          return (
+            <div key={id}>
+              <Heading title={name} logo={logos[type].logo} color={logos[type].color} />
               <div className="pokemon-ctn">
                 <div className="tables">
                   <GlobalStatsTable pokemon={pokemon} />
                   <StatsTable pokemon={pokemon} />
                 </div>
-                <img src={pokemon.image} alt={pokemon.name} />
+                <img src={image} alt={name} />
               </div>
             </div>
-          ))}
-      </div>
+          );
+        })}
     </>
   );
 }
+type ButtonProps = {
+  onClick: () => void;
+  loading: boolean;
+};
+const Button = ({ onClick, loading }: ButtonProps) => {
+  return (
+    <button className="App" onClick={onClick}>
+      {loading ? "Loading..." : "Call API"}
+    </button>
+  );
+};
+type HeadingProps = {
+  title: string;
+  logo: string;
+  color: string;
+};
+const Heading = ({ title, logo, color }: HeadingProps) => {
+  title = title.charAt(0).toUpperCase() + title.slice(1);
+  return (
+    <>
+      <style>
+        {`
+          .heading {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+          }
+          .heading h2 {
+            color: ${color};
+          }
+          .logo-container {
+            background-color: ${color};
+            opacity: 0.6;
+            border-radius: 50%;
+            width: fit-content;
+            height: fit-content;
+            padding: 10px;
+          }
+        `}
+      </style>
 
+      <div className="heading">
+        <h2>{title}</h2>
+        <div className="logo-container">
+          <img src={logo} alt={"pokemon : " + title} />
+        </div>
+      </div>
+    </>
+  );
+};
 const StatsTable = ({ pokemon }: { pokemon: Pokemon }) => {
   const { hp, attack, defense, specialAttack, specialDefense, speed } = pokemon;
 

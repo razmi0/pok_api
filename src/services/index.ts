@@ -3,7 +3,7 @@ type PokemonsResult = {
   url: string;
 }; //: Pick<PokemonsResult, "url">[]
 
-type Pokemon = {
+export type Pokemon = {
   name: string;
   baseXp: number;
   hp: number;
@@ -20,7 +20,7 @@ type Pokemon = {
   id: number;
 };
 
-export const call = async (): Promise<Pokemon[]> => {
+export const getPokemons = async (): Promise<Pokemon[]> => {
   try {
     let res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0");
     let data = await res.json();
