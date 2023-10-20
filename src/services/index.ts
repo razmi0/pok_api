@@ -20,9 +20,9 @@ export type Pokemon = {
   id: number;
 };
 
-export const getPokemons = async (): Promise<Pokemon[]> => {
+export const callApi = async (limit: number = 10, offset: number = 0): Promise<Pokemon[]> => {
   try {
-    let res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0");
+    let res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
     let data = await res.json();
     const pokemons: Pokemon[] = [];
     const urls: string[] = data.results.map((pokemon: PokemonsResult) => {
