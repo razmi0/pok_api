@@ -18,6 +18,7 @@ const App = () => {
   const getPokemons = async () => {
     setLoading(true);
     setPokemons(await callApi(POKEMONS_LIMIT, POKEMON_OFFSET));
+
     setIsOpen(new Array(pokemons.length).fill(false));
     setLoading(false);
   };
@@ -39,19 +40,22 @@ const App = () => {
 
           return (
             <div key={id}>
-              <Heading
-                title={name}
-                color={color}
-                onClick={handleOpen}
-                index={index}
-                isOpen={isOpen[index]}
-              />
+              <div className="card">
+                <Heading
+                  title={name}
+                  color={color}
+                  onClick={handleOpen}
+                  index={index}
+                  isOpen={isOpen[index]}
+                />
+                <StatsTable pokemon={pokemon} />
+              </div>
               {isOpen[index] && (
                 <div className="pokemon-ctn">
-                  <img src={image} alt={name} />
+                  <img src={image} alt={name} loading="lazy" />
                   <div className="tables">
                     {/* <GlobalStatsTable pokemon={pokemon} /> */}
-                    <StatsTable pokemon={pokemon} />
+                    {/* <StatsTable pokemon={pokemon} /> */}
                   </div>
                 </div>
               )}

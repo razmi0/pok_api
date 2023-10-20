@@ -45,6 +45,14 @@ h1 {
   align-items: center;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  width: fit-content;
+  border: 1px solid #000;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -73,6 +81,7 @@ button:hover {
   width: fit-content;
   cursor: pointer;
   transition: filter 0.5s ease-in-out;
+  width: 100%;
 }
 .heading:hover {
   transition: filter 0.2s ease-in;
@@ -95,8 +104,8 @@ button:hover {
 }
 .grid-ctn {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: 6fr;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
   gap: 10px;
   grid-auto-flow: row;
   width: fit-content;
@@ -104,11 +113,11 @@ button:hover {
 }
 .grid-item {
   display: flex;
-  flex-direction: row;
-  gap: 0.8em;
+  flex-direction: column;
+  gap: 0.4em;
   justify-content: space-between;
   align-items: center;
-  font-size: 18px;
+  font-size: 15px;
   text-align: center;
 }
 

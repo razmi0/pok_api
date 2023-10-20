@@ -7,8 +7,9 @@ type HeadingProps = {
   onClick: (index: number) => void;
   isOpen: boolean;
   index: number;
+  children?: React.ReactNode;
 };
-export const Heading = ({ title, color, onClick, isOpen, index }: HeadingProps) => {
+export const Heading = ({ title, color, onClick, isOpen, index, children }: HeadingProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
   title = title.charAt(0).toUpperCase() + title.slice(1);
   return (
@@ -24,6 +25,7 @@ export const Heading = ({ title, color, onClick, isOpen, index }: HeadingProps) 
     >
       <Eye isOpen={isOpen} color={color} />
       <h2 style={{ color: color }}>{title}</h2>
+      {children}
     </div>
   );
 };

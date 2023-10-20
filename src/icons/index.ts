@@ -4,6 +4,7 @@ type TypeData = {
   };
 };
 
+// Color by pokemon type families
 export const typeData: TypeData = {
   bug: {
     color: "#44b820",
@@ -64,8 +65,8 @@ export type SvgStatDataType = {
 };
 
 export const svgStatData: SvgStatDataType = {
-  size: ["32px", "32px"],
-  filter: ["8px", "3px"],
+  size: ["24px", "24px"],
+  filter: ["5px", "3px"],
   scale: "1.1",
   transition: "all 0.2s ease-in-out",
   icons: {
