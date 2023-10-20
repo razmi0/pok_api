@@ -39,7 +39,7 @@ const App = () => {
           const index = id - 1;
 
           return (
-            <div key={id}>
+            <div className="card-ctn" key={id}>
               <div className="card">
                 <Heading
                   title={name}
@@ -49,14 +49,12 @@ const App = () => {
                   isOpen={isOpen[index]}
                 />
                 <StatsTable pokemon={pokemon} />
+                {isOpen[index] && <GlobalStatsTable pokemon={pokemon} />}
               </div>
               {isOpen[index] && (
                 <div className="pokemon-ctn">
                   <img src={image} alt={name} loading="lazy" />
-                  <div className="tables">
-                    {/* <GlobalStatsTable pokemon={pokemon} /> */}
-                    {/* <StatsTable pokemon={pokemon} /> */}
-                  </div>
+                  <div className="tables"></div>
                 </div>
               )}
             </div>

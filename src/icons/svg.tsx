@@ -209,6 +209,102 @@ export const Speed = ({ color, size }: SvgProps) => {
   );
 };
 
+export const Weight = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      fill={color}
+      height={size[0]}
+      width={size[1]}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path d="M510.28 445.86l-73.03-292.13c-3.8-15.19-16.44-25.72-30.87-25.72h-60.25c3.57-10.05 5.88-20.72 5.88-32 0-53.02-42.98-96-96-96s-96 42.98-96 96c0 11.28 2.3 21.95 5.88 32h-60.25c-14.43 0-27.08 10.54-30.87 25.72L1.72 445.86C-6.61 479.17 16.38 512 48.03 512h415.95c31.64 0 54.63-32.83 46.3-66.14zM256 128c-17.64 0-32-14.36-32-32s14.36-32 32-32 32 14.36 32 32-14.36 32-32 32z"></path>
+      </g>
+    </svg>
+  );
+};
+
+export const Height = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      width={size[0]}
+      height={size[1]}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        stroke={color}
+        strokeWidth="0.9120000000000001"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          d="M12 22V2M12 22L8 18M12 22L16 18M12 2L8 6M12 2L16 6"
+          stroke={color}
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>{" "}
+      </g>
+    </svg>
+  );
+};
+
+export const Xp = ({ color, size }: SvgProps) => {
+  return (
+    <svg
+      width={size[0]}
+      height={size[1]}
+      viewBox="0 0 64 64"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      aria-hidden="true"
+      role="img"
+      preserveAspectRatio="xMidYMid meet"
+      fill={color}
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          d="M26.89 32.291h-7.592V4.525c0-3.366-5.215-3.366-5.215 0v27.766H6.49c-2.446 0-4.49 2.318-4.49 5.095c0 2.779 2.043 5.098 4.49 5.098h7.593v16.992c0 3.365 5.215 3.365 5.215 0V42.484h7.592c2.449 0 4.491-2.318 4.491-5.098c0-2.778-2.042-5.095-4.491-5.095"
+          fill={color}
+        ></path>
+        <path
+          d="M49.739 55.861H37.372c-3.847 0-3.847 6.138 0 6.138h12.367c3.848 0 3.848-6.138 0-6.138"
+          fill={color}
+        ></path>
+        <path
+          d="M51.614 45.089H37.372c-3.847 0-3.847 6.139 0 6.139h14.242c3.848 0 3.848-6.139 0-6.139"
+          fill={color}
+        ></path>
+        <path
+          d="M53.489 34.317H37.372c-3.847 0-3.847 6.138 0 6.138h16.117c3.848 0 3.848-6.138 0-6.138"
+          fill={color}
+        ></path>
+        <path
+          d="M55.364 23.545H37.372c-3.847 0-3.847 6.138 0 6.138h17.992c3.848 0 3.848-6.138 0-6.138m0 4.138H37.372c-.77 0-.885-.67-.885-1.068c0-.399.115-1.069.885-1.069h17.992c.771 0 .885.67.885 1.069c0 .398-.114 1.068-.885 1.068"
+          fill={color}
+        ></path>
+        <path
+          d="M57.239 12.774H37.372c-3.847 0-3.847 6.138 0 6.138h19.867c3.848 0 3.848-6.138 0-6.138m0 4.138H37.372c-.77 0-.885-.67-.885-1.068c0-.399.115-1.069.885-1.069h19.867c.771 0 .885.67.885 1.069c0 .398-.114 1.068-.885 1.068"
+          fill={color}
+        ></path>
+        <path
+          d="M59.114 2.001H37.372c-3.847 0-3.847 6.138 0 6.138h21.742c3.848 0 3.848-6.138 0-6.138m0 4.138H37.372c-.77 0-.885-.67-.885-1.069c0-.398.115-1.068.885-1.068h21.742c.771 0 .885.67.885 1.068c0 .399-.114 1.069-.885 1.069"
+          fill={color}
+        ></path>
+      </g>
+    </svg>
+  );
+};
 type IconProps = {
   icon: ComponentType<SvgProps>;
   svgData: SvgStatDataType;

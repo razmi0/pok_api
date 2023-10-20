@@ -33,6 +33,9 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+h2 {
+  margin: 20px 0;
+}
 .tables {
   display: flex;
   flex-direction: row;
@@ -43,6 +46,11 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
+}
+.pokemon-ctn img {
+  height: 300px;
+  aspect-ratio: 1;
 }
 
 .card {
@@ -50,7 +58,11 @@ h1 {
   flex-direction: column;
   place-items: center;
   width: fit-content;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
+}
+.card-ctn {
+  display: flex;
+  flex-direction: row;
 }
 
 button {
@@ -91,30 +103,33 @@ button:hover {
 }
 .global-grid-ctn {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0px 0px;
-  width: 50%;
-  height: fit-content;
-}
-.global-grid-item {
-  padding: 10px;
-  font-size: 25px;
-  text-align: center;
-  border: 1px solid #000;
-}
-.grid-ctn {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: 3fr;
   gap: 10px;
   grid-auto-flow: row;
   width: fit-content;
   height: fit-content;
 }
+.global-grid-item {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  /* justify-content: space-between; */
+  align-items: center;
+  font-size: 15px;
+  text-align: left;
+}
+.grid-ctn {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  height: fit-content;
+}
 .grid-item {
   display: flex;
   flex-direction: column;
-  gap: 0.4em;
+  gap: 0.2em;
   justify-content: space-between;
   align-items: center;
   font-size: 15px;

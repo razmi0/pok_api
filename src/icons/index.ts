@@ -94,5 +94,17 @@ export const svgStatData: SvgStatDataType = {
       color: "#f85888",
       stat: "Speed",
     },
+    weight: {
+      color: "#ffffffde",
+      stat: "Weight",
+    },
+    height: {
+      color: "#ffffffde",
+      stat: "Height",
+    },
+    xp: {
+      color: "#ffffffde",
+      stat: "Base experience",
+    },
   },
 };
