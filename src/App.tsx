@@ -1,54 +1,82 @@
 import { useState } from "react";
-import { getPokemons, Pokemon } from "./services";
+import { callApi, Pokemon } from "./services";
+import { Loader } from "./components/Loader";
 import "./App.css";
+
 type Logo = {
   [key: string]: {
-    logo: string;
     color: string;
   };
 };
 const logos: Logo = {
   bug: {
-    logo: "./bug.svg",
-    color: "#A8B820",
+    color: "#44b820",
   },
-  elec: {
-    logo: "./elec.svg",
+  electric: {
     color: "#F8D030",
   },
   fire: {
-    logo: "./fire.svg",
     color: "#F08030",
   },
   grass: {
-    logo: "./grass.svg",
     color: "#78C850",
   },
   water: {
-    logo: "./water.svg",
     color: "#6890F0",
+  },
+  normal: {
+    color: "#A8A878",
+  },
+  poison: {
+    color: "#A040A0",
+  },
+  ground: {
+    color: "#E0C068",
+  },
+  flying: {
+    color: "#A890F0",
+  },
+  psychic: {
+    color: "#F85888",
+  },
+  ghost: {
+    color: "#705898",
+  },
+  rock: {
+    color: "#B8A038",
+  },
+  fairy: {
+    color: "#EE99AC",
+  },
+  fighting: {
+    color: "#C03028",
   },
 };
 
-function App() {
+const POKEMONS_LIMIT = 100;
+const POKEMON_OFFSET = 0;
+
+const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
-  const callApi = async () => {
+  const getPokemons = async () => {
     setLoading(true);
-    setPokemons(await getPokemons());
+    setPokemons(await callApi(POKEMONS_LIMIT, POKEMON_OFFSET));
     setLoading(false);
   };
 
   return (
     <>
-      <Button onClick={callApi} loading={loading} />
+      <Button onClick={getPokemons} loading={loading} />
       {pokemons &&
         pokemons.map((pokemon) => {
           const { id, type, image, name } = pokemon;
+          const color = logos[type].color || logos["fire"].color;
+
           return (
             <div key={id}>
-              <Heading title={name} logo={logos[type].logo} color={logos[type].color} />
+              <Heading title={name} color={color} />
               <div className="pokemon-ctn">
                 <div className="tables">
                   <GlobalStatsTable pokemon={pokemon} />
@@ -61,7 +89,7 @@ function App() {
         })}
     </>
   );
-}
+};
 type ButtonProps = {
   onClick: () => void;
   loading: boolean;
@@ -69,16 +97,15 @@ type ButtonProps = {
 const Button = ({ onClick, loading }: ButtonProps) => {
   return (
     <button className="App" onClick={onClick}>
-      {loading ? "Loading..." : "Call API"}
+      {loading ? <Loader /> : "Get them all !"}
     </button>
   );
 };
 type HeadingProps = {
   title: string;
-  logo: string;
   color: string;
 };
-const Heading = ({ title, logo, color }: HeadingProps) => {
+const Heading = ({ title, color }: HeadingProps) => {
   title = title.charAt(0).toUpperCase() + title.slice(1);
   return (
     <>
@@ -87,29 +114,36 @@ const Heading = ({ title, logo, color }: HeadingProps) => {
           .heading {
             display: flex;
             flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
+            place-items : center;
+            justify-content: center;
             gap: 10px;
+            width: 100%;
           }
           .heading h2 {
-            color: ${color};
+            font-size: 40px;
           }
           .logo-container {
-            background-color: ${color};
-            opacity: 0.6;
+            opacity: 0.8;
             border-radius: 50%;
             width: fit-content;
             height: fit-content;
-            padding: 10px;
+            padding: 5px;
+            display: flex;
+            place-items: center;
+            z-index: 9;
+            min-width: 30px;
+            min-height: 30px;
+          }
+          .logo-container img {
+            z-index: 10;
+            width: 30px;
           }
         `}
       </style>
 
       <div className="heading">
-        <h2>{title}</h2>
-        <div className="logo-container">
-          <img src={logo} alt={"pokemon : " + title} />
-        </div>
+        <h2 style={{ color: color }}>{title}</h2>
+        <div className="logo-container" style={{ backgroundColor: color }}></div>
       </div>
     </>
   );
