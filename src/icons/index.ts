@@ -3,6 +3,7 @@ type TypeData = {
     color: string;
   };
 };
+
 export const typeData: TypeData = {
   bug: {
     color: "#44b820",

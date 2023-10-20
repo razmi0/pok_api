@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Eye } from "./Eye";
+import { Eye } from "../icons/svg";
 
 type HeadingProps = {
   title: string;
   color: string;
-  onClick: (id: number) => void;
+  onClick: (index: number) => void;
   open: boolean;
   index: number;
 };
