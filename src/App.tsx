@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { callApi } from "./services";
+import { callAPI } from "./services/fetch";
 import { Button } from "./components/Button";
 import { Heading } from "./components/Heading";
 import { StatsTable, GlobalStatsTable } from "./components/Tables";
@@ -8,19 +8,18 @@ import { Pokemon } from "./types";
 import { Radar, data, options } from "./components/Radar";
 import "./App.css";
 
-const POKEMONS_LIMIT = Math.floor(Math.random() * 100);
+const POKEMONS_LIMIT = 200; // Math.floor(Math.random() * 100)
 const POKEMON_OFFSET = Math.floor(Math.random() * 100);
+console.log(`limit : ${POKEMONS_LIMIT} offset : ${POKEMON_OFFSET}`);
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean[]>(new Array(POKEMONS_LIMIT).fill(false));
 
   const getPokemons = async () => {
     setLoading(true);
-    setPokemons(await callApi(POKEMONS_LIMIT, POKEMON_OFFSET));
-
-    setIsOpen(new Array(pokemons.length).fill(false));
+    setPokemons(await callAPI(POKEMONS_LIMIT, POKEMON_OFFSET));
     setLoading(false);
   };
 
@@ -36,6 +35,7 @@ const App = () => {
       {pokemons &&
         pokemons.map((pokemon) => {
           const { id, type, image, name } = pokemon;
+          console.log(type);
           const color = typeData[type].color;
           const index = id - 1;
 
