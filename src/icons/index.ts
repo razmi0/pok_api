@@ -4,6 +4,8 @@ type TypeData = {
   };
 };
 
+const white = "#ffffffde";
+
 // Color by pokemon type families
 export const typeData: TypeData = {
   bug: {
@@ -47,6 +49,18 @@ export const typeData: TypeData = {
   },
   fighting: {
     color: "#C03028",
+  },
+  ice: {
+    color: "#98D8D8",
+  },
+  dragon: {
+    color: "#7038F8",
+  },
+  dark: {
+    color: "#4a4a4a",
+  },
+  steel: {
+    color: "#B8B8D0",
   },
 };
 
@@ -95,15 +109,15 @@ export const svgStatData: SvgStatDataType = {
       stat: "Speed",
     },
     weight: {
-      color: "#ffffffde",
+      color: white,
       stat: "Weight",
     },
     height: {
-      color: "#ffffffde",
+      color: white,
       stat: "Height",
     },
     xp: {
-      color: "#ffffffde",
+      color: white,
       stat: "Base experience",
     },
   },
