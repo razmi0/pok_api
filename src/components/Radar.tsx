@@ -11,10 +11,6 @@ import {
 } from "chart.js";
 import { Radar as Chart } from "react-chartjs-2";
 
-export const data: ChartData<"radar"> = {
-  labels: ["HP", "Attack", "Defense", "Sp.Attack", "Sp.Defense", "Speed"],
-  datasets: [],
-};
 export const options: ChartOptions<"radar"> = {
   spanGaps: true,
   interaction: {
@@ -66,7 +62,7 @@ export const Radar = ({
       <style>
         {`
         .radar-ctn {
-            width: max-content;
+            width: 150px;
             padding: 0;
             margin: 0;
         }

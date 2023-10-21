@@ -5,21 +5,38 @@ import { Heading } from "./components/Heading";
 import { StatsTable, GlobalStatsTable } from "./components/Tables";
 import { typeData } from "./icons";
 import { Pokemon } from "./types";
-import { Radar, data, options } from "./components/Radar";
+import { Radar, options } from "./components/Radar";
 import "./App.css";
+import { ChartData } from "chart.js";
 
-const POKEMONS_LIMIT = 200; // Math.floor(Math.random() * 100)
+const POKEMONS_LIMIT = 200;
 const POKEMON_OFFSET = Math.floor(Math.random() * 100);
 console.log(`limit : ${POKEMONS_LIMIT} offset : ${POKEMON_OFFSET}`);
+
+type RadarDataset = {
+  hp: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+  speed: number;
+};
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [radarDatasets, setRadarDatasets] = useState<RadarDataset[]>([]); // data.datasets.push({})
   const [isOpen, setIsOpen] = useState<boolean[]>(new Array(POKEMONS_LIMIT).fill(false));
 
   const getPokemons = async () => {
     setLoading(true);
     setPokemons(await callAPI(POKEMONS_LIMIT, POKEMON_OFFSET));
+    setRadarDatasets(
+      pokemons.map((pokemon) => {
+        const { hp, attack, defense, specialAttack, specialDefense, speed } = pokemon;
+        return { hp, attack, defense, specialAttack, specialDefense, speed };
+      })
+    );
     setLoading(false);
   };
 
@@ -35,9 +52,25 @@ const App = () => {
       {pokemons &&
         pokemons.map((pokemon) => {
           const { id, type, image, name } = pokemon;
-          console.log(type);
           const color = typeData[type].color;
           const index = id - 1;
+          const radarData: ChartData<"radar"> = {
+            labels: ["HP", "Attack", "Defense", "Sp.Attack", "Sp.Defense", "Speed"],
+            datasets: [
+              {
+                data: [
+                  pokemon.hp,
+                  pokemon.attack,
+                  pokemon.defense,
+                  pokemon.specialAttack,
+                  pokemon.specialDefense,
+                  pokemon.speed,
+                ],
+                backgroundColor: color,
+              },
+            ],
+          };
+          console.log(radarData);
 
           return (
             <div className="card-ctn" key={id}>
@@ -52,6 +85,17 @@ const App = () => {
                 <StatsTable pokemon={pokemon} />
 
                 {isOpen[index] && (
+                  // data.datasets.push({
+                  //   label: name,
+                  //   data: [
+                  //     pokemon.hp,
+                  //     pokemon.attack,
+                  //     pokemon.defense,
+                  //     pokemon.specialAttack,
+                  //     pokemon.specialDefense,
+                  //     pokemon.speed,
+                  //   ],
+                  // })
                   <div
                     style={{
                       display: "flex",
@@ -64,7 +108,7 @@ const App = () => {
                         width: "max-content",
                       }}
                     >
-                      <Radar data={data} options={options} />
+                      <Radar data={radarData} options={options} />
                     </div>
                   </div>
                 )}
