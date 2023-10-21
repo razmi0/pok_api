@@ -1,4 +1,4 @@
-export type PokemonsResult = {
+export type Context = {
   name: string;
   url: string;
 }; //: Pick<PokemonsResult, "url">[]
