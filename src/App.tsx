@@ -5,10 +5,11 @@ import { Heading } from "./components/Heading";
 import { StatsTable, GlobalStatsTable } from "./components/Tables";
 import { typeData } from "./icons";
 import { Pokemon } from "./types";
+import { Radar, data, options } from "./components/Radar";
 import "./App.css";
 
-const POKEMONS_LIMIT = 100;
-const POKEMON_OFFSET = 0;
+const POKEMONS_LIMIT = Math.floor(Math.random() * 100);
+const POKEMON_OFFSET = Math.floor(Math.random() * 100);
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,7 +50,24 @@ const App = () => {
                   isOpen={isOpen[index]}
                 />
                 <StatsTable pokemon={pokemon} />
-                {isOpen[index] && <GlobalStatsTable pokemon={pokemon} />}
+
+                {isOpen[index] && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <GlobalStatsTable pokemon={pokemon} />
+                    <div
+                      style={{
+                        width: "max-content",
+                      }}
+                    >
+                      <Radar data={data} options={options} />
+                    </div>
+                  </div>
+                )}
               </div>
               {isOpen[index] && (
                 <div className="pokemon-ctn">

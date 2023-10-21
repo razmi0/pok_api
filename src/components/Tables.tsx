@@ -52,6 +52,9 @@ export const GlobalStatsTable = ({ pokemon }: { pokemon: Pokemon }) => {
         style={{
           width: "100%",
           marginTop: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
         }}
       >
         <div className="global-grid-ctn ">
