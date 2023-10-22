@@ -3,7 +3,7 @@ import {
   LinearScale,
   PointElement,
   Tooltip,
-  Legend,
+  // Legend,
   ChartOptions,
   ChartData,
 } from "chart.js";
@@ -86,6 +86,6 @@ const data: ChartData<"bubble"> = {
   ],
 };
 
-export const BubbleChart = ({ data, options }: any) => {
+export const BubbleChart = () => {
   return <Bubble data={data} options={options} />;
 };

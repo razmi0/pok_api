@@ -6,7 +6,7 @@ import { StatsTable, GlobalStatsTable } from "./components/Tables";
 import { typeData } from "./icons";
 import { Pokemon } from "./types";
 import { Radar, options } from "./components/Radar";
-import "./App.css";
+import "./css/App.css";
 import { ChartData } from "chart.js";
 
 type RadarDataset = {
