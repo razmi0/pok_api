@@ -12,38 +12,56 @@ import {
 import { Radar as Chart } from "react-chartjs-2";
 
 export const options: ChartOptions<"radar"> = {
+  normalized: true,
   spanGaps: true,
   interaction: {
     mode: "nearest",
-    // intersect: false,
-    // includeInvisibleLines: false,
   },
   responsive: true,
   animations: {
     radius: {
-      duration: 500,
+      duration: 1000,
       easing: "linear",
     },
   },
-  // animation: false,
   scales: {
     r: {
       grid: {
         circular: true,
-        color: "#ffffff",
+        color: "#ffffff2c",
       },
       ticks: {
         display: false,
       },
       pointLabels: {
-        color: "#ffffff",
+        display: false,
       },
+
       beginAtZero: true,
     },
   },
   plugins: {
     legend: {
       display: false,
+    },
+    title: {
+      display: false,
+    },
+    tooltip: {
+      displayColors: false,
+      bodyFont: {
+        size: 14,
+        weight: "bold",
+      },
+      callbacks: {
+        label: (context) => {
+          const { label, raw } = context;
+          return `${label}: ${raw}`;
+        },
+        title: () => {
+          return "";
+        },
+      },
     },
   },
 };
@@ -64,7 +82,7 @@ export const Radar = ({
         .radar-ctn {
             width: 150px;
             padding: 0;
-            margin: 0;
+            margin: 10px;
         }
         `}
       </style>

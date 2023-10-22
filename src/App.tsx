@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { callAPI } from "./services/fetch";
 import { Button } from "./components/Button";
 import { Heading } from "./components/Heading";
@@ -9,18 +9,30 @@ import { Radar, options } from "./components/Radar";
 import "./App.css";
 import { ChartData } from "chart.js";
 
-const POKEMONS_LIMIT = 200;
-const POKEMON_OFFSET = Math.floor(Math.random() * 100);
-console.log(`limit : ${POKEMONS_LIMIT} offset : ${POKEMON_OFFSET}`);
-
 type RadarDataset = {
-  hp: number;
-  attack: number;
-  defense: number;
-  specialAttack: number;
-  specialDefense: number;
-  speed: number;
+  labels: string[];
+  datasets: [
+    {
+      data: number[];
+      backgroundColor: string;
+      hitRadius: number;
+      pointRadius: number;
+      pointHoverRadius: number;
+      tension: number;
+    }
+  ];
 };
+
+const POKEMONS_LIMIT = 10; // max has to be the count
+const POKEMON_OFFSET = Math.floor(Math.random() * 100);
+
+const dataOptions = {
+  hitRadius: 10,
+  pointRadius: 0,
+  pointHoverRadius: 3,
+  tension: 0.1,
+};
+const labels = ["Hp", "Attack", "Defense", "Sp.Attack", "Sp.Defense", "Speed"];
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,15 +40,27 @@ const App = () => {
   const [radarDatasets, setRadarDatasets] = useState<RadarDataset[]>([]); // data.datasets.push({})
   const [isOpen, setIsOpen] = useState<boolean[]>(new Array(POKEMONS_LIMIT).fill(false));
 
+  useEffect(() => {
+    setRadarDatasets(
+      pokemons.map((pokemon) => {
+        const { hp, attack, defense, specialAttack, specialDefense, speed, type } = pokemon;
+        return {
+          labels,
+          datasets: [
+            {
+              data: [hp, attack, defense, specialAttack, specialDefense, speed],
+              backgroundColor: typeData[type].color + "b0" ?? "#e8e8e8b0",
+              ...dataOptions,
+            },
+          ],
+        };
+      })
+    );
+  }, [pokemons]);
+
   const getPokemons = async () => {
     setLoading(true);
     setPokemons(await callAPI(POKEMONS_LIMIT, POKEMON_OFFSET));
-    setRadarDatasets(
-      pokemons.map((pokemon) => {
-        const { hp, attack, defense, specialAttack, specialDefense, speed } = pokemon;
-        return { hp, attack, defense, specialAttack, specialDefense, speed };
-      })
-    );
     setLoading(false);
   };
 
@@ -50,52 +74,26 @@ const App = () => {
     <>
       {pokemons.length == 0 && <Button onClick={getPokemons} loading={loading} />}
       {pokemons &&
-        pokemons.map((pokemon) => {
-          const { id, type, image, name } = pokemon;
+        pokemons.map((pokemon, i) => {
+          const { image, name, type } = pokemon;
           const color = typeData[type].color;
-          const index = id - 1;
           const radarData: ChartData<"radar"> = {
-            labels: ["HP", "Attack", "Defense", "Sp.Attack", "Sp.Defense", "Speed"],
-            datasets: [
-              {
-                data: [
-                  pokemon.hp,
-                  pokemon.attack,
-                  pokemon.defense,
-                  pokemon.specialAttack,
-                  pokemon.specialDefense,
-                  pokemon.speed,
-                ],
-                backgroundColor: color,
-              },
-            ],
+            ...radarDatasets[i],
           };
-          console.log(radarData);
 
           return (
-            <div className="card-ctn" key={id}>
+            <div className="card-ctn" key={i}>
               <div className="card">
                 <Heading
                   title={name}
                   color={color}
                   onClick={handleOpen}
-                  index={index}
-                  isOpen={isOpen[index]}
+                  index={i}
+                  isOpen={isOpen[i]}
                 />
                 <StatsTable pokemon={pokemon} />
 
-                {isOpen[index] && (
-                  // data.datasets.push({
-                  //   label: name,
-                  //   data: [
-                  //     pokemon.hp,
-                  //     pokemon.attack,
-                  //     pokemon.defense,
-                  //     pokemon.specialAttack,
-                  //     pokemon.specialDefense,
-                  //     pokemon.speed,
-                  //   ],
-                  // })
+                {isOpen[i] && (
                   <div
                     style={{
                       display: "flex",
@@ -113,10 +111,9 @@ const App = () => {
                   </div>
                 )}
               </div>
-              {isOpen[index] && (
+              {isOpen[i] && (
                 <div className="pokemon-ctn">
                   <img src={image} alt={name} loading="lazy" />
-                  <div className="tables"></div>
                 </div>
               )}
             </div>
