@@ -1,0 +1,1 @@
+- [ ] fix POKEMON_LIMIT to tht max number of pokemon
