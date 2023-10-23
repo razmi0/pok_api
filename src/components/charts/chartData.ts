@@ -1,15 +1,13 @@
-import {
-  Chart as ChartJS,
-  ChartData,
-  ChartOptions,
-  LineElement,
-  PointElement,
-  Tooltip,
-  Legend,
-  RadialLinearScale,
-  Filler,
-} from "chart.js";
-import { Radar as Chart } from "react-chartjs-2";
+import { ChartOptions } from "chart.js";
+
+export const communDataOptions = {
+  hitRadius: 10,
+  pointRadius: 0,
+  pointHoverRadius: 3,
+  tension: 0.1,
+};
+
+export const labels = ["hp", "attack", "defense", "specialAttack", "specialDefense", "speed"];
 
 export const options: ChartOptions<"radar"> = {
   normalized: true,
@@ -27,14 +25,19 @@ export const options: ChartOptions<"radar"> = {
   scales: {
     r: {
       grid: {
-        circular: true,
+        circular: false,
         color: "#ffffff2c",
       },
       ticks: {
         display: false,
       },
       pointLabels: {
-        display: false,
+        display: true,
+        callback: (label) => {
+          const el = document.querySelector(`.radar${label}`);
+          console.log(el);
+          return "";
+        },
       },
 
       beginAtZero: true,
@@ -64,31 +67,4 @@ export const options: ChartOptions<"radar"> = {
       },
     },
   },
-};
-
-ChartJS.register(LineElement, PointElement, Tooltip, Legend, RadialLinearScale, Filler);
-
-export const Radar = ({
-  data,
-  options,
-}: {
-  data: ChartData<"radar">;
-  options: ChartOptions<"radar">;
-}) => {
-  return (
-    <>
-      <style>
-        {`
-        .radar-ctn {
-            width: 150px;
-            padding: 0;
-            margin: 10px;
-        }
-        `}
-      </style>
-      <div className="radar-ctn">
-        <Chart data={data} options={options} />
-      </div>
-    </>
-  );
 };
