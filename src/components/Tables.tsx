@@ -13,7 +13,12 @@ import {
 } from "../icons/svg";
 import type { Pokemon } from "../types";
 
-export const StatsTable = ({ pokemon }: { pokemon: Pokemon }) => {
+type StatTableProps = {
+  pokemon: Pokemon;
+  handleHoverStats: (id: number, stat: number) => void;
+  id: number;
+};
+export const StatsTable = ({ pokemon, handleHoverStats, id }: StatTableProps) => {
   const { hp, attack, defense, specialAttack, specialDefense, speed } = pokemon;
   const statsWithIcons = [
     { stat: hp, icon: <Icon icon={Heart} svgData={svgStatData} /> },
@@ -28,7 +33,12 @@ export const StatsTable = ({ pokemon }: { pokemon: Pokemon }) => {
     <>
       <div className="grid-ctn">
         {statsWithIcons.map(({ stat, icon }, i) => (
-          <div className="grid-item" key={i}>
+          <div
+            className="grid-item"
+            key={i}
+            onMouseEnter={() => handleHoverStats(id, i)}
+            onMouseLeave={() => handleHoverStats(id, i)}
+          >
             {icon}
             <div className="grid-item-stat ">{stat}</div>
           </div>

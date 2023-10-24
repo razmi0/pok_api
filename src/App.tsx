@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { callAPI } from "./services/fetch";
-import { Button } from "./components/Button";
-import { Heading } from "./components/Heading";
-import { StatsTable, GlobalStatsTable } from "./components/Tables";
+import { ChartData } from "chart.js";
+import { Button, Heading, StatsTable, GlobalStatsTable, Radar } from "./components";
+import { options, communDataOptions, labels } from "./components/charts/chartData";
 import { typeData } from "./icons";
 import { Pokemon } from "./types";
-import { Radar, options } from "./components/Radar";
 import "./css/App.css";
-import { ChartData } from "chart.js";
 
 type RadarDataset = {
   labels: string[];
@@ -26,19 +24,16 @@ type RadarDataset = {
 const POKEMONS_LIMIT = 10; // max has to be the count
 const POKEMON_OFFSET = Math.floor(Math.random() * 100);
 
-const dataOptions = {
-  hitRadius: 10,
-  pointRadius: 0,
-  pointHoverRadius: 3,
-  tension: 0.1,
-};
-const labels = ["Hp", "Attack", "Defense", "Sp.Attack", "Sp.Defense", "Speed"];
+const nStats = labels.length;
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [radarDatasets, setRadarDatasets] = useState<RadarDataset[]>([]); // data.datasets.push({})
+  const [radarDatasets, setRadarDatasets] = useState<RadarDataset[]>([]);
   const [isOpen, setIsOpen] = useState<boolean[]>(new Array(POKEMONS_LIMIT).fill(false));
+  const [isStatHovered, setIsStatHovered] = useState<boolean[][]>(
+    Array.from({ length: POKEMONS_LIMIT }, () => Array(nStats).fill(false))
+  );
 
   useEffect(() => {
     setRadarDatasets(
@@ -50,7 +45,7 @@ const App = () => {
             {
               data: [hp, attack, defense, specialAttack, specialDefense, speed],
               backgroundColor: typeData[type].color + "b0" ?? "#e8e8e8b0",
-              ...dataOptions,
+              ...communDataOptions,
             },
           ],
         };
@@ -70,12 +65,21 @@ const App = () => {
     setIsOpen(newOpen);
   };
 
+  const handleHoverStats = (id: Pokemon["id"], indexedStat: number) => {
+    setIsStatHovered((prev) => {
+      const newIsStatHovered = [...prev];
+      console.log(newIsStatHovered[id - 1]);
+      newIsStatHovered[id - 1][indexedStat] = !newIsStatHovered[id - 1][indexedStat];
+      return newIsStatHovered;
+    });
+  };
+
   return (
     <>
       {pokemons.length == 0 && <Button onClick={getPokemons} loading={loading} />}
       {pokemons &&
         pokemons.map((pokemon, i) => {
-          const { image, name, type } = pokemon;
+          const { image, name, type, id } = pokemon;
           const color = typeData[type].color;
           const radarData: ChartData<"radar"> = {
             ...radarDatasets[i],
@@ -91,7 +95,7 @@ const App = () => {
                   index={i}
                   isOpen={isOpen[i]}
                 />
-                <StatsTable pokemon={pokemon} />
+                <StatsTable pokemon={pokemon} handleHoverStats={handleHoverStats} id={id} />
 
                 {isOpen[i] && (
                   <div

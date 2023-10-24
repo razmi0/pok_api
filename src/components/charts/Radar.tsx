@@ -29,7 +29,7 @@ export const Radar = ({ data, options }: RadarChart) => {
         }
         `}
       </style>
-      <div className="radar-ctn">
+      <div className={`radar-ctn radar-`}>
         <Chart data={data} options={options} />
       </div>
     </>
