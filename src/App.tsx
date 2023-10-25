@@ -5,7 +5,6 @@ import { Button, Heading, StatsTable, GlobalStatsTable, Radar } from "./componen
 import { options, communDataOptions, labels } from "./components/charts/chartData";
 import { typeData } from "./components/icons";
 import { Pokemon } from "./types";
-import "./css/App.css";
 
 type RadarDataset = {
   labels: string[];
