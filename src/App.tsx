@@ -3,7 +3,7 @@ import { callAPI } from "./services/fetch";
 import { ChartData } from "chart.js";
 import { Button, Heading, StatsTable, GlobalStatsTable, Radar } from "./components";
 import { options, communDataOptions, labels } from "./components/charts/chartData";
-import { typeData } from "./icons";
+import { typeData } from "./components/icons";
 import { Pokemon } from "./types";
 import "./css/App.css";
 
@@ -59,17 +59,17 @@ const App = () => {
     setLoading(false);
   };
 
-  const handleOpen = (index: number) => {
+  const handleOpenCard = (index: number) => {
     const newOpen = [...isOpen];
     newOpen[index] = !newOpen[index];
     setIsOpen(newOpen);
   };
 
-  const handleHoverStats = (id: Pokemon["id"], indexedStat: number) => {
+  const handleHoverStats = (indexedPokemon: number, indexedStat: number) => {
     setIsStatHovered((prev) => {
       const newIsStatHovered = [...prev];
-      console.log(newIsStatHovered[id - 1]);
-      newIsStatHovered[id - 1][indexedStat] = !newIsStatHovered[id - 1][indexedStat];
+      newIsStatHovered[indexedPokemon][indexedStat] =
+        !newIsStatHovered[indexedPokemon][indexedStat];
       return newIsStatHovered;
     });
   };
@@ -79,23 +79,27 @@ const App = () => {
       {pokemons.length == 0 && <Button onClick={getPokemons} loading={loading} />}
       {pokemons &&
         pokemons.map((pokemon, i) => {
-          const { image, name, type, id } = pokemon;
+          const { image, name, type } = pokemon;
           const color = typeData[type].color;
           const radarData: ChartData<"radar"> = {
             ...radarDatasets[i],
           };
 
           return (
-            <div className="card-ctn" key={i}>
-              <div className="card">
+            <article className="card-ctn" key={i}>
+              <section className="card">
                 <Heading
                   title={name}
                   color={color}
-                  onClick={handleOpen}
+                  onClick={handleOpenCard}
                   index={i}
                   isOpen={isOpen[i]}
                 />
-                <StatsTable pokemon={pokemon} handleHoverStats={handleHoverStats} id={id} />
+                <StatsTable
+                  pokemon={pokemon}
+                  handleHoverStats={handleHoverStats}
+                  indexedPokemon={i}
+                />
 
                 {isOpen[i] && (
                   <div
@@ -114,15 +118,46 @@ const App = () => {
                     </div>
                   </div>
                 )}
-              </div>
+              </section>
               {isOpen[i] && (
-                <div className="pokemon-ctn">
+                <figure className="pokemon-ctn">
                   <img src={image} alt={name} loading="lazy" />
-                </div>
+                </figure>
               )}
-            </div>
+            </article>
           );
         })}
+      <style>
+        {`
+          .tables {
+            display: flex;
+            flex-direction: row;
+            gap: 1em;
+            width: 100%;
+          }
+          .pokemon-ctn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+          }
+          .pokemon-ctn img {
+            height: 250px;
+            aspect-ratio: 1;
+          }
+          .card {
+            display: flex;
+            flex-direction: column;
+            place-items: center;
+            width: fit-content;
+            height: 100%;
+          }
+          .card-ctn {
+            display: flex;
+            flex-direction: row;
+          }
+        `}
+      </style>
     </>
   );
 };

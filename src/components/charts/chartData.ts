@@ -34,8 +34,7 @@ export const options: ChartOptions<"radar"> = {
       pointLabels: {
         display: true,
         callback: (label) => {
-          const el = document.querySelector(`.radar${label}`);
-          console.log(el);
+          console.log(label);
           return "";
         },
       },

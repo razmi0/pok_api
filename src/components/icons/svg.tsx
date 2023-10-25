@@ -1,5 +1,5 @@
 import { ComponentType, useState } from "react";
-import { IconNameType, SvgStatDataType } from "./";
+import { IconNameType, SvgStatDataType } from ".";
 
 type EyeProps = {
   color: string;
@@ -335,6 +335,14 @@ export const Icon = ({ icon: SvgIcon, svgData }: IconProps) => {
       }}
     >
       <SvgIcon color={color} size={size} />
+      <style>
+        {` 
+        .icon-stat-ctn {
+          display: flex;
+          place-content: center;
+        }
+        `}
+      </style>
     </div>
   );
 };

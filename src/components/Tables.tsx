@@ -1,4 +1,4 @@
-import { svgStatData } from "../icons";
+import { svgStatData } from "./icons";
 import {
   Heart,
   Shield,
@@ -10,15 +10,15 @@ import {
   Weight,
   Height,
   Xp,
-} from "../icons/svg";
+} from "./icons/svg";
 import type { Pokemon } from "../types";
 
 type StatTableProps = {
   pokemon: Pokemon;
-  handleHoverStats: (id: number, stat: number) => void;
-  id: number;
+  handleHoverStats: (indexedPokemon: number, indexedStat: number) => void;
+  indexedPokemon: number;
 };
-export const StatsTable = ({ pokemon, handleHoverStats, id }: StatTableProps) => {
+export const StatsTable = ({ pokemon, handleHoverStats, indexedPokemon }: StatTableProps) => {
   const { hp, attack, defense, specialAttack, specialDefense, speed } = pokemon;
   const statsWithIcons = [
     { stat: hp, icon: <Icon icon={Heart} svgData={svgStatData} /> },
@@ -36,14 +36,34 @@ export const StatsTable = ({ pokemon, handleHoverStats, id }: StatTableProps) =>
           <div
             className="grid-item"
             key={i}
-            onMouseEnter={() => handleHoverStats(id, i)}
-            onMouseLeave={() => handleHoverStats(id, i)}
+            onMouseEnter={() => handleHoverStats(indexedPokemon, i)}
+            onMouseLeave={() => handleHoverStats(indexedPokemon, i)}
           >
             {icon}
-            <div className="grid-item-stat ">{stat}</div>
+            <div className="grid-item-stat">{stat}</div>
           </div>
         ))}
       </div>
+      <style>
+        {`
+        .grid-ctn {
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          width: 100%;
+          height: fit-content;
+        }
+        .grid-item {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2em;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 15px;
+          text-align: center;
+        }
+      `}
+      </style>
     </>
   );
 };
@@ -76,6 +96,28 @@ export const GlobalStatsTable = ({ pokemon }: { pokemon: Pokemon }) => {
           ))}
         </div>
       </div>
+      <style>
+        {`
+      .global-grid-ctn {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: 3fr;
+        gap: 10px;
+        grid-auto-flow: row;
+        width: fit-content;
+        height: fit-content;
+      }
+      .global-grid-item {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+        /* justify-content: space-between; */
+        align-items: center;
+        font-size: 15px;
+        text-align: left;
+      }
+      `}
+      </style>
     </>
   );
 };
